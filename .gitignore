@@ -1,0 +1,24 @@
+# Rust
+/target
+**/*.rs.bk
+
+# Node / 前端构建产物（web/dist 由 rust-embed 编译期内嵌，构建时生成）
+web/node_modules
+web/dist
+
+# macOS 打包产物（scripts/make-app.sh 生成）
+dist/
+
+# Android 构建产物
+clients/android/.gradle
+clients/android/build
+clients/android/app/build
+clients/android/local.properties
+
+# 系统文件
+.DS_Store
+*.log
+
+# 编辑器
+.idea
+.vscode

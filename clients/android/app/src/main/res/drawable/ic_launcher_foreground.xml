@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Logo：触控板轮廓 + 双指触点（对应 Palm 核心的双指滚动手势）。
+     自适应图标 108dp 画布，图形控制在中央安全区（r≈33dp）内。 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- 触控板圆角矩形（描边） -->
+    <path
+        android:pathData="M39,35 h30 a9,9 0 0 1 9,9 v20 a9,9 0 0 1 -9,9 h-30 a9,9 0 0 1 -9,-9 v-20 a9,9 0 0 1 9,-9 z"
+        android:strokeColor="#98A2B3"
+        android:strokeWidth="4"
+        android:fillColor="#00000000" />
+    <!-- 双指触点 -->
+    <path
+        android:pathData="M39,54 a6,6 0 1 0 12,0 a6,6 0 1 0 -12,0 z"
+        android:fillColor="#5B8CFF" />
+    <path
+        android:pathData="M57,54 a6,6 0 1 0 12,0 a6,6 0 1 0 -12,0 z"
+        android:fillColor="#E8EAF0" />
+</vector>

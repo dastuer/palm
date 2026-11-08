@@ -1,0 +1,267 @@
+/* Palm 触控板 UI —— 深色优先、100dvh、禁橡皮筋（§5.1 PWA） */
+
+:root {
+  --bg: #0f1115;
+  --bg2: #161a21;
+  --bg3: #1e232d;
+  --fg: #e8eaf0;
+  --fg-dim: #8b93a3;
+  --accent: #5b8cff;
+  --danger: #ff5d5d;
+  --radius: 14px;
+  --topbar-h: 52px;
+  --keybar-h: 64px;
+}
+
+html[data-theme="light"] {
+  --bg: #f2f3f7;
+  --bg2: #ffffff;
+  --bg3: #e8eaf1;
+  --fg: #1a1d24;
+  --fg-dim: #6b7280;
+  --accent: #3b6fe0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  height: 100%;
+  overscroll-behavior: none;
+  background: var(--bg);
+  color: var(--fg);
+  font: 15px/1.4 -apple-system, "PingFang SC", "Noto Sans SC", sans-serif;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+button {
+  font: inherit;
+  color: var(--fg);
+  background: var(--bg3);
+  border: 0;
+  border-radius: 10px;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+button:active { filter: brightness(1.3); }
+
+#app {
+  height: 100dvh;
+  display: grid;
+  grid-template-rows: var(--topbar-h) 1fr auto;
+  overflow: hidden;
+}
+
+/* ---- 顶栏 ---- */
+#topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  padding-top: env(safe-area-inset-top);
+  background: var(--bg2);
+  border-bottom: 1px solid rgba(128, 138, 160, 0.12);
+}
+#conn { display: flex; align-items: center; gap: 8px; font-variant-numeric: tabular-nums; color: var(--fg-dim); }
+#dot { width: 10px; height: 10px; border-radius: 50%; background: #555; transition: background 0.2s; }
+#dot.ok { background: #34c759; box-shadow: 0 0 6px #34c75988; }
+#dot.pairing { background: #ffcc00; }
+#dot.off { background: #666; }
+#tabs { display: flex; gap: 6px; }
+.tab {
+  background: transparent;
+  color: var(--fg-dim);
+  padding: 6px 14px;
+  border-radius: 999px;
+}
+.tab.on { background: var(--bg3); color: var(--fg); }
+
+/* ---- 触控板区域 ---- */
+#touchpad {
+  position: relative;
+  touch-action: none;
+  overflow: hidden;
+}
+#hint {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 14px;
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  color: var(--fg-dim);
+  font-size: 12px;
+  opacity: 0.55;
+  pointer-events: none;
+}
+#hint span { background: var(--bg2); padding: 3px 10px; border-radius: 999px; }
+
+/* ---- 面板（键盘/设置） ---- */
+.panel {
+  padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+  background: var(--bg2);
+  overflow-y: auto;
+  touch-action: pan-y;
+}
+.hidden { display: none !important; }
+
+.row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.row button {
+  flex: 1;
+  padding: 12px 4px;
+  font-size: 15px;
+  background: var(--bg3);
+}
+.row.letters button { font-size: 17px; }
+.f-row button { font-size: 12px; padding: 10px 2px; }
+.media-row button { font-size: 14px; }
+.tip {
+  color: var(--fg-dim);
+  font-size: 12px;
+  text-align: center;
+  margin-top: 4px;
+}
+
+/* ---- 常驻键条 ---- */
+#keybar {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  padding: 8px 10px calc(8px + env(safe-area-inset-bottom));
+  background: var(--bg2);
+  border-top: 1px solid rgba(128, 138, 160, 0.12);
+}
+#keybar button {
+  flex: 1;
+  padding: 12px 0;
+  font-size: 17px;
+  background: var(--bg3);
+}
+#keybar .sep { width: 4px; }
+#keybar .mod { background: var(--bg3); }
+#keybar .mod.sticky {
+  background: var(--accent);
+  color: #fff;
+}
+#ime {
+  position: fixed;
+  top: -100px;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  opacity: 0.01;
+  z-index: -1;
+}
+
+/* ---- 设置 ---- */
+.ctl {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 2px;
+  border-bottom: 1px solid rgba(128, 138, 160, 0.08);
+}
+.ctl label { flex: 1; display: flex; align-items: center; justify-content: space-between; }
+.ctl output { color: var(--fg-dim); font-variant-numeric: tabular-nums; }
+.ctl input[type="range"] { width: 55%; accent-color: var(--accent); }
+.ctl select {
+  background: var(--bg3);
+  color: var(--fg);
+  border: 0;
+  border-radius: 8px;
+  padding: 6px;
+}
+input.switch {
+  appearance: none;
+  width: 46px;
+  height: 26px;
+  border-radius: 999px;
+  background: var(--bg3);
+  position: relative;
+  transition: background 0.2s;
+}
+input.switch::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s;
+}
+input.switch:checked { background: var(--accent); }
+input.switch:checked::after { transform: translateX(20px); }
+.danger {
+  width: 100%;
+  margin-top: 14px;
+  color: var(--danger);
+  background: transparent;
+  border: 1px solid var(--danger);
+}
+
+/* ---- 覆盖卡片（配对/PIN） ---- */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: grid;
+  place-items: center;
+  z-index: 50;
+  touch-action: pan-y;
+}
+.card {
+  background: var(--bg2);
+  border-radius: var(--radius);
+  padding: 22px;
+  width: min(88vw, 360px);
+  display: grid;
+  gap: 12px;
+}
+.card h2 { font-size: 18px; }
+.card .sub { color: var(--fg-dim); font-size: 13px; }
+.card input {
+  background: var(--bg3);
+  border: 0;
+  border-radius: 10px;
+  color: var(--fg);
+  padding: 12px;
+  font-size: 16px;
+}
+.card button { padding: 12px; background: var(--accent); color: #fff; }
+.card button.ghost { background: var(--bg3); color: var(--fg-dim); }
+
+/* ---- Toast ---- */
+#toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(var(--keybar-h) + 24px + env(safe-area-inset-bottom));
+  transform: translateX(-50%) translateY(20px);
+  background: #333c4d;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  opacity: 0;
+  transition: all 0.25s;
+  pointer-events: none;
+  z-index: 99;
+  max-width: 86vw;
+}
+#toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* 触摸中的按压视觉反馈 */
+button:active, .tab:active { opacity: 0.85; }

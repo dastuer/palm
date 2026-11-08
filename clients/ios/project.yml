@@ -1,0 +1,22 @@
+# XcodeGen 工程定义：brew install xcodegen && xcodegen && open Palm.xcodeproj
+name: Palm
+options:
+  bundleIdPrefix: io.palm
+  deploymentTarget:
+    iOS: "15.0"
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+targets:
+  Palm:
+    type: application
+    platform: iOS
+    sources: [Sources]
+    info:
+      path: Info.plist
+      properties:
+        CFBundleDisplayName: Palm
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        UIRequiresFullScreen: true
+        ITSAppUsesNonExemptEncryption: false
