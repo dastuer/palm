@@ -22,3 +22,8 @@ clients/android/local.properties
 # 编辑器
 .idea
 .vscode
+
+# iOS 生成物（xcodegen 生成，见 clients/ios/README.md）
+clients/ios/Palm.xcodeproj
+clients/ios/Info.plist
+clients/ios/build

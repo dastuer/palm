@@ -71,7 +71,7 @@ final class ClickZoneView: UIView {
         // 文字标识（低调）
         let attrs: [NSAttributedString.Key: Any] = [.font: labelFont, .foregroundColor: labelColor]
         let midY = bounds.height / 2 - labelFont.lineHeight / 2
-        ("左键" as NSString).draw(at: CGPoint(x: half / 2 - labelFont.size, y: midY), withAttributes: attrs)
-        ("右键" as NSString).draw(at: CGPoint(x: half + half / 2 - labelFont.size, y: midY), withAttributes: attrs)
+        ("左键" as NSString).draw(at: CGPoint(x: half / 2 - labelFont.pointSize, y: midY), withAttributes: attrs)
+        ("右键" as NSString).draw(at: CGPoint(x: half + half / 2 - labelFont.pointSize, y: midY), withAttributes: attrs)
     }
 }

@@ -11,14 +11,16 @@ android {
         applicationId = "io.palm.client"
         minSdk = 26
         targetSdk = 35
-        versionCode = 1
-        versionName = "0.1.0"
+        versionCode = 2
+        versionName = "0.1.1"
     }
 
     buildTypes {
         release {
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            // 自发布（GitHub Release）：使用 debug 签名让 release APK 可直接安装
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
